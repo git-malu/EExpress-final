@@ -38,9 +38,9 @@ public class UserLogin extends ActionBarActivity {
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         if(pref.getBoolean(MyDatabase.mPrefUserInfoSave,false)){
-            SharedPreferences pref2 = getApplicationContext().getSharedPreferences("UserInfo", MODE_PRIVATE);
-            mUserPhone.setText(pref2.getString(MyDatabase.mPrefUserPhone,""));
-            mUserPass.setText(pref2.getString(MyDatabase.mPrefUserPass,""));
+//            SharedPreferences pref2 = getApplicationContext().getSharedPreferences("UserInfo", MODE_PRIVATE);
+            mUserPhone.setText(pref.getString(MyDatabase.mPrefUserPhone,""));
+            mUserPass.setText(pref.getString(MyDatabase.mPrefUserPass,""));
         }
         //set clickListeners
         mLogin.setOnClickListener(new View.OnClickListener() {

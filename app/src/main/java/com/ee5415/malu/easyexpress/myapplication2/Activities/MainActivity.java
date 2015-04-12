@@ -107,7 +107,7 @@ public class MainActivity extends MapActivity {
                     startActivityForResult(i, 11);
                 }else if(menuItem.getItemId() == R.id.user){
                     Intent i = new Intent(MainActivity.this,UserLogin.class);
-                    startActivity(i);
+                    startActivityForResult(i, 22);
                 }
                 return false;
             }
@@ -123,8 +123,16 @@ public class MainActivity extends MapActivity {
 
             if(pref.getBoolean(MyDatabase.mPrefUserInfoSave,false)){
                 if(!MyDatabase.mLoginStatus.equalsIgnoreCase("false")){
-                    pref.edit().putString(MyDatabase.mPrefUserPhone,MyDatabase.mCurrentUserPhone);
-                    pref.edit().putString(MyDatabase.mPrefUserPass,MyDatabase.mCurrentUserPass);
+                    pref.edit().putString(MyDatabase.mPrefUserPhone,MyDatabase.mCurrentUserPhone).commit();
+                    pref.edit().putString(MyDatabase.mPrefUserPass,MyDatabase.mCurrentUserPass).commit();
+                }
+            }
+        }else if(requestCode == 22){
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+            if (pref.getBoolean(MyDatabase.mPrefUserInfoSave,false)) {
+                if (!MyDatabase.mLoginStatus.equalsIgnoreCase("false")) {
+                    pref.edit().putString(MyDatabase.mPrefUserPhone, MyDatabase.mCurrentUserPhone).commit();
+                    pref.edit().putString(MyDatabase.mPrefUserPass, MyDatabase.mCurrentUserPass).commit();
                 }
             }
         }

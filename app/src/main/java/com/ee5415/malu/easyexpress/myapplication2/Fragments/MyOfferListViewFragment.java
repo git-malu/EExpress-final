@@ -179,6 +179,7 @@ public class MyOfferListViewFragment extends ListFragment {
                         });
                     }
                 }else {
+                    //if offline just display
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
