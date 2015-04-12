@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">EasyExpress</string>
+    <string name="app_name">Easy Express</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
@@ -40,5 +40,6 @@
     <string name="btn_Company">Choose express Company</string>
     <string name="btn_track">TRACK</string>
     <string name="btn_package">Track your package</string>
+    <string name="title_activity_welcome">EasyExpress</string>
 
 </resources>
