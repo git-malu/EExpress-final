@@ -53,7 +53,7 @@ public class MyOfferListViewFragment extends ListFragment {
         Intent intent = getActivity().getIntent();
         mOrderID = intent.getStringExtra("order_id");
         //have a test first
-        Toast.makeText(getActivity(),mOrderID,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(),mOrderID,Toast.LENGTH_SHORT).show();
         //start the thread here !
         new ThreadInquiryOffer().start();
 
