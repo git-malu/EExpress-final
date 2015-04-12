@@ -59,7 +59,8 @@
         </activity>
         <activity
             android:name=".Activities.UserSettingActivity"
-            android:label="UserSettingActivity">
+            android:label="UserSettingActivity"
+            android:theme="@style/PreferencesTheme">
         </activity>
         <activity
             android:name=".Activities.UserRegister"

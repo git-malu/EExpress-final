@@ -19,5 +19,7 @@
     <color name="background_toolbar">#99B2DFDB</color>
     <color name="text_color_toolbar">#F50057</color>
 
+    <color name="pure_dark">#263238</color>
+
 
 </resources>

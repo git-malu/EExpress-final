@@ -47,6 +47,9 @@ public class MainActivity extends MapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MyDatabase.IP = PreferenceManager.getDefaultSharedPreferences(this).getString("prefServerIP","null");
+
+
+        /////////////////////////////////////////////////
         mapView = (MapView) this.findViewById(R.id.bmapView);
         bMapManager = new BMapManager(MainActivity.this);
         // 必须要加载key
@@ -73,7 +76,7 @@ public class MainActivity extends MapActivity {
 
         mapController.setCenter(geoPoint);// 设置一个中心点
         mapController.setZoom(12);// 设置缩放级别是12个级别
-
+//////////////////////////////////////////////////////////////////////////////////////////////
         //Send Button
         mSendButton = (Button) findViewById(R.id.send_button);
         mSendButton.setOnClickListener(new View.OnClickListener() {
