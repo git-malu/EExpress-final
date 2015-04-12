@@ -49,11 +49,15 @@
             android:id="@+id/select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/primary_blue"
+            android:minHeight="45dp"
             android:text="select"/>
     <Button
         android:id="@+id/call"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/secondary_blue"
+        android:minHeight="45dp"
         android:text="call"/>
     </LinearLayout>
 </RelativeLayout>

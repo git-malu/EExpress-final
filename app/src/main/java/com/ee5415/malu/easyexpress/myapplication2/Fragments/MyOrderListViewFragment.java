@@ -22,12 +22,25 @@ import com.ee5415.malu.easyexpress.myapplication2.Classes.MyDatabase;
 import com.ee5415.malu.easyexpress.myapplication2.Classes.MySQLiteHelper;
 import com.ee5415.malu.easyexpress.myapplication2.R;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MyOrderListViewFragment extends ListFragment {
     Context mCtx;
     Cursor cs;
+
+    private static final int PORT = 12345;
+    private static Socket link = null;
+    private static PrintWriter out;
+    private static Scanner in;
+    public String mBuffer = "null";
+
 
     public MyOrderListViewFragment() {
         // Required empty public constructor
@@ -71,6 +84,8 @@ public class MyOrderListViewFragment extends ListFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 0 && resultCode == Activity.RESULT_OK){
+            //offer selected.
+            //update the order status to accepted !!
             String result_order_id = data.getStringExtra("order_id");
             String result_courier_phone = data.getStringExtra("courier_phone");
             Toast.makeText(getActivity(), result_order_id +"  " + result_courier_phone + "I'm back!", Toast.LENGTH_LONG).show();//usable! tested.
@@ -85,6 +100,7 @@ public class MyOrderListViewFragment extends ListFragment {
             }
             cs = queryDataBase();
             setListAdapter(new MyCursorAdapter(mCtx,cs));
+            new ThreadUpdateStatus(result_order_id,result_courier_phone).start();
         }
     }
 
@@ -162,27 +178,58 @@ public class MyOrderListViewFragment extends ListFragment {
         }
     }
 
-    /*class GetOfferTask implements Runnable {
-        private static final int PORT = 12345;
-        private  Socket link = null;
-        private  Scanner in;
-        private  PrintWriter out;
-        public String mBuffer = "null";
+    public class ThreadUpdateStatus extends Thread{
+        String result_order_id;
+        String result_courier_phone;
+        public ThreadUpdateStatus(String order_id,String courier_phone) {
+            result_order_id = order_id;
+            result_courier_phone = courier_phone;
+        }
+
         @Override
         public void run() {
             try {
                 link = new Socket(MyDatabase.IP, PORT);
                 in = new Scanner(link.getInputStream());
                 out = new PrintWriter(link.getOutputStream(), true);
-                out.println("inquiry_offer");
-                mBuffer = in.nextLine();
+                out.println("update_order_status:" + result_order_id);
+
+//                if(MyDatabase.mLoginStatus.equalsIgnoreCase("true")){
+//                    mBuffer = in.nextLine();
+//                    if (!mBuffer.equalsIgnoreCase("null")){
+//                        //split
+//                        mBufferString = mBuffer.split(":");
+//                        final MySQLiteHelper helper = new MySQLiteHelper(getActivity());
+//                        for(int i = 0; i<mBufferString.length/5; i++) {
+//                            helper.insertOfferRecord(helper,mBufferString[0+i*5],mBufferString[1+i*5],mBufferString[2+i*5],mBufferString[3+i*5],mBufferString[4+i*5],"null");//the null is courier position
+//                        }
+//                        //about UI
+//                        //set Adapter !!
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                cs = queryDataBase();
+//                                setListAdapter(new MyCursorAdapter(mCtx,cs));
+//                            }
+//                        });
+//                    }
+//                }else {
+//                    //if offline just display
+//                    getActivity().runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            cs = queryDataBase();
+//                            setListAdapter(new MyCursorAdapter(mCtx,cs));
+//                        }
+//                    });
+//                }
+
             } catch (UnknownHostException uhEx) {
                 System.out.println("not host find");
             } catch (IOException ioEx) {
                 ioEx.printStackTrace();
-            } catch (NoSuchElementException noEx){
-                ;
             } finally {
+//                cs.close();// close the Cursor !!!!!!!!!!!!
                 try {
                     if (link != null) {
                         System.out.println("Closing down connection...");
@@ -193,5 +240,5 @@ public class MyOrderListViewFragment extends ListFragment {
                 }
             }
         }
-    }*/
+    }
 }

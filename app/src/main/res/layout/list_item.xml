@@ -15,12 +15,14 @@
         android:id="@+id/from_to_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="20dp"
         android:text="from   to"/>
     <TextView
         android:id="@+id/phone_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="courier phone: "
+        android:textSize="20dp"
         android:layout_below="@id/from_to_textView"/>
 
     <TextView
